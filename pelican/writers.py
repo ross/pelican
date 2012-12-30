@@ -133,7 +133,7 @@ class Writer(object):
         # check paginated
         paginated = paginated or {}
         if paginated:
-            name_root, ext = os.path.splitext(name)
+            name_root = os.path.splitext(name)[0]
 
             # pagination needed, init paginators
             paginators = {}
