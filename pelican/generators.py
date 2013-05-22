@@ -474,7 +474,12 @@ class PagesGenerator(Generator):
         self.hidden_pages, self.hidden_translations = process_translations(hidden_pages)
 
         self._update_context(('pages', ))
-        self.context['PAGES'] = self.pages
+
+        pages = self.pages
+        page_sorter = self.settings.get('PAGE_SORTER', None)
+        if page_sorter:
+            pages = page_sorter(pages)
+        self.context['PAGES'] = pages
 
     def generate_output(self, writer):
         for page in chain(self.translations, self.pages,
